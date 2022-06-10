@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetLessons", "DotNetLessons\DotNetLessons.csproj", "{CC57F969-ADBD-4A0E-B498-52076E9CBA9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiRest", "ApiRest\ApiRest.csproj", "{267D490F-C7BA-4677-B27E-285ABCB3181D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CC57F969-ADBD-4A0E-B498-52076E9CBA9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC57F969-ADBD-4A0E-B498-52076E9CBA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC57F969-ADBD-4A0E-B498-52076E9CBA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC57F969-ADBD-4A0E-B498-52076E9CBA9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267D490F-C7BA-4677-B27E-285ABCB3181D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267D490F-C7BA-4677-B27E-285ABCB3181D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267D490F-C7BA-4677-B27E-285ABCB3181D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267D490F-C7BA-4677-B27E-285ABCB3181D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
