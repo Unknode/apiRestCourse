@@ -11,29 +11,67 @@ namespace ApiRest.Controllers
     [Route("[controller]")]
     public class CalculatorController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
-        private readonly ILogger<CalculatorController> _logger;
-
-        public CalculatorController(ILogger<CalculatorController> logger)
+        [HttpGet("sum/{firstNumber}/{secondNumber}")]
+        public IActionResult GetSum(string firstNumber, string secondNumber)
         {
-            _logger = logger;
+            if (isNumeric(firstNumber) && isNumeric(secondNumber))
+            {
+                decimal sum = decimal.Parse(firstNumber) + decimal.Parse(secondNumber);
+                return Ok(sum.ToString());
+            }
+            return BadRequest("Invalid Input");
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("sub/{firstNumber}/{secondNumber}")]
+        public IActionResult GetSub(string firstNumber, string secondNumber)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            if (isNumeric(firstNumber) && isNumeric(secondNumber))
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                decimal sum = decimal.Parse(firstNumber) - decimal.Parse(secondNumber);
+                return Ok(sum.ToString());
+            }
+            return BadRequest("Invalid Input");
+        }
+        [HttpGet("mult/{firstNumber}/{secondNumber}")]
+        public IActionResult Get(string firstNumber, string secondNumber)
+        {
+            if (isNumeric(firstNumber) && isNumeric(secondNumber))
+            {
+                decimal sum = decimal.Parse(firstNumber) * decimal.Parse(secondNumber);
+                return Ok(sum.ToString());
+            }
+            return BadRequest("Invalid Input");
+        }
+        [HttpGet("div/{firstNumber}/{secondNumber}")]
+        public IActionResult Get(string firstNumber, string secondNumber)
+        {
+            if (isNumeric(firstNumber) && isNumeric(secondNumber))
+            {
+                decimal sum = decimal.Parse(firstNumber) / decimal.Parse(secondNumber);
+                return Ok(sum.ToString());
+            }
+            return BadRequest("Invalid Input");
+        }
+        [HttpGet("square/{firstNumber}")]
+        public IActionResult GetSquareRoot(string firstNumber)
+        {
+            if (isNumeric(firstNumber))
+            {
+                double sum = Math.Sqrt(double.Parse(firstNumber));
+                return Ok(sum.ToString());
+            }
+            return BadRequest("Invalid Input");
+        }
+        private bool isNumeric (string number)
+        {
+            if (String.IsNullOrEmpty(number))
+                return false;
+
+            if (decimal.TryParse(number, System.Globalization.NumberStyles.None, System.Globalization.NumberFormatInfo.InvariantInfo,out decimal result))
+                return true;
+       
+            return false;
         }
     }
 }
