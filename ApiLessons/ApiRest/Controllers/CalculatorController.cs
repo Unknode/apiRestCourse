@@ -24,7 +24,7 @@ namespace ApiRest.Controllers
         }
 
         [HttpGet("sub/{firstNumber}/{secondNumber}")]
-        public IActionResult GetSub(string firstNumber, string secondNumber)
+        public IActionResult GetSubtration(string firstNumber, string secondNumber)
         {
             if (isNumeric(firstNumber) && isNumeric(secondNumber))
             {
@@ -34,7 +34,7 @@ namespace ApiRest.Controllers
             return BadRequest("Invalid Input");
         }
         [HttpGet("mult/{firstNumber}/{secondNumber}")]
-        public IActionResult Get(string firstNumber, string secondNumber)
+        public IActionResult GetMultiplicatiom(string firstNumber, string secondNumber)
         {
             if (isNumeric(firstNumber) && isNumeric(secondNumber))
             {
@@ -44,12 +44,19 @@ namespace ApiRest.Controllers
             return BadRequest("Invalid Input");
         }
         [HttpGet("div/{firstNumber}/{secondNumber}")]
-        public IActionResult Get(string firstNumber, string secondNumber)
+        public IActionResult GetDivision(string firstNumber, string secondNumber)
         {
             if (isNumeric(firstNumber) && isNumeric(secondNumber))
             {
-                decimal sum = decimal.Parse(firstNumber) / decimal.Parse(secondNumber);
-                return Ok(sum.ToString());
+                try
+                {
+                    decimal sum = decimal.Parse(firstNumber) / decimal.Parse(secondNumber);
+                    return Ok(sum.ToString());
+
+                } catch (DivideByZeroException)
+                {
+                    return BadRequest("Division by zero");
+                }
             }
             return BadRequest("Invalid Input");
         }
