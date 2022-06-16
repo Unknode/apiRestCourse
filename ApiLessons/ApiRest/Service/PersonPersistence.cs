@@ -5,7 +5,7 @@ namespace ApiRest.Service
 {
     public class PersonPersistence : IPersonPersistence
     {
-        private MockedPersonData _data = new MockedPersonData();
+        private static MockedPersonData _data = new MockedPersonData();
         public Person Create(Person person)
         {
             if (person == null)
