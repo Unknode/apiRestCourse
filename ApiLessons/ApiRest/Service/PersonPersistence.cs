@@ -1,37 +1,47 @@
-﻿using ApiRest.Model;
+﻿using ApiRest.Model.Context;
+using ApiRest.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ApiRest.Service
 {
     public class PersonPersistence : IPersonPersistence
     {
-        private static MockedPersonData _data = new MockedPersonData();
+        private MySQLContext _context = new MySQLContext();
+
+        public PersonPersistence (MySQLContext context)
+        {
+            _context = context;
+        }
         public Person Create(Person person)
         {
             if (person == null)
                 return null;
 
-            _data.PersonList.Add(person);
+            _context.Add(person);
+            _context.SaveChanges();
 
             return person;
         }
         public List<Person> FindAll()
         {
-            return _data.GetPeopleList();
+            return _context.Persons.ToList();
         }
-        public Person Update(Person person)
+        public void Update(Person person)
         {
             if (person == null)
-                return null;
+                return;
 
-            return person;
+           _context.Persons.Update(person);
+            _context.SaveChanges();
         }
         public void Delete(int id)
         {
             if (id == 0)
                 return;
 
-            _data.PersonList.RemoveAll(x => x.Id == id);
+            _context.Persons.Remove(GetPerson(id));
+            _context.SaveChanges();
         }
 
         public Person GetPerson(int id)
@@ -39,7 +49,7 @@ namespace ApiRest.Service
             if (id == 0)
                 return null;
 
-            return _data.PersonList.Find(x => x.Id == id);
+            return _context.Persons.SingleOrDefault(p => p.Id == id);
         }
     }
 

@@ -8,7 +8,7 @@ namespace ApiRest.Service
         public Person GetPerson(int id);
         public Person Create(Person person);
         public List<Person> FindAll();
-        public Person Update(Person person);
+        public void Update(Person person);
         public void Delete (int id);
     }
 }

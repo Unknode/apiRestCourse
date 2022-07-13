@@ -13,6 +13,7 @@ namespace ApiRest.Controllers
     [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
+
         private IPersonPersistence _personPersistence = new PersonPersistence();
 
         [HttpGet]
@@ -50,7 +51,7 @@ namespace ApiRest.Controllers
             if (person == null)
                 return BadRequest("Null value");
 
-            return Ok(_personPersistence.Update(person));
+            return Ok();
         }
 
         [HttpDelete("{id}")]

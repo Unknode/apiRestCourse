@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using ApiRest.Model.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,11 @@ namespace ApiRest
         public void ConfigureServices(IServiceCollection services)
         {
 
+
             services.AddControllers();
+
+            string connection = Configuration["MySqlConnection:MySqlConnectionString"];
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection)); 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiRest", Version = "v1" });
