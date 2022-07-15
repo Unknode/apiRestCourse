@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace ApiRest.Controllers
 {
     [ApiController]
@@ -14,24 +15,44 @@ namespace ApiRest.Controllers
     public class PersonController : ControllerBase
     {
 
-        private IPersonPersistence _personPersistence = new PersonPersistence();
+        private IPersonPersistence _personPersistence;
+
+        public PersonController (IPersonPersistence personPersistence)
+        {
+            _personPersistence = personPersistence;
+        }
 
         [HttpGet]
         public IActionResult GetAllPersons()
         {
-            return Ok(_personPersistence.FindAll());
+            try
+            {
+                return Ok(_personPersistence.FindAll());
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetPerson(string id)
         {
-            if (String.IsNullOrEmpty(id))
-                return BadRequest("Empty value");
+            try
+            {
+                if (String.IsNullOrEmpty(id))
+                    return BadRequest("Empty value");
 
-            if (!int.TryParse(id, out int idValue))
-                return BadRequest("Incorrect value");
+                if (!int.TryParse(id, out int idValue))
+                    return BadRequest("Incorrect value");
 
-            return Ok(_personPersistence.GetPerson(int.Parse(id)));
+                return Ok(_personPersistence.GetPerson(int.Parse(id)));
+            }
+            catch (Exception ex)
+
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]

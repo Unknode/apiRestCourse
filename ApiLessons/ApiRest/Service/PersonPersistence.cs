@@ -7,7 +7,7 @@ namespace ApiRest.Service
 {
     public class PersonPersistence : IPersonPersistence
     {
-        private MySQLContext _context = new MySQLContext();
+        private MySQLContext _context;
 
         public PersonPersistence (MySQLContext context)
         {
@@ -32,7 +32,12 @@ namespace ApiRest.Service
             if (person == null)
                 return;
 
-           _context.Persons.Update(person);
+            Person dbPerson = _context.Persons.FirstOrDefault(x => x.Id == person.Id);
+            if (dbPerson == null)
+            {
+                return;
+            }
+            _context.Entry(dbPerson).CurrentValues.SetValues(person);
             _context.SaveChanges();
         }
         public void Delete(int id)
