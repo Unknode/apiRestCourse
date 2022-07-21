@@ -17,7 +17,7 @@ namespace ApiRest.Controllers
 
         private IPersonPersistence _personPersistence;
 
-        public PersonController (IPersonPersistence personPersistence)
+        public PersonController(IPersonPersistence personPersistence)
         {
             _personPersistence = personPersistence;
         }
@@ -31,7 +31,7 @@ namespace ApiRest.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -51,42 +51,64 @@ namespace ApiRest.Controllers
             catch (Exception ex)
 
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost]
-        public IActionResult CreateNewPerson([FromBody]Person person)
+        public IActionResult CreateNewPerson([FromBody] Person person)
         {
-            if (person==null)
-                return BadRequest("Null value");
+            try
+            {
+                if (person == null)
+                    return BadRequest("Null value");
 
-            _personPersistence.Create(person);
+                _personPersistence.Create(person);
 
-            return Ok();
+                return Ok("Person successfully created");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         public IActionResult UpdatePerson([FromBody] Person person)
         {
-            if (person == null)
-                return BadRequest("Null value");
+            try
+            {
+                if (person == null)
+                    return BadRequest("Null value");
 
-            return Ok();
+                _personPersistence.Update(person);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeletePerson(string id)
         {
-            if (String.IsNullOrEmpty(id))
-                return BadRequest();
+            try
+            {
+                if (String.IsNullOrEmpty(id))
+                    return BadRequest();
 
-            if(!int.TryParse(id, out int idValue))
-                return BadRequest("Incorrect value");
+                if (!int.TryParse(id, out int idValue))
+                    return BadRequest("Incorrect value");
 
-            _personPersistence.Delete(int.Parse(id));
+                _personPersistence.Delete(int.Parse(id));
 
-            return Ok();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

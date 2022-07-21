@@ -34,9 +34,8 @@ namespace ApiRest.Service
 
             Person dbPerson = _context.Persons.FirstOrDefault(x => x.Id == person.Id);
             if (dbPerson == null)
-            {
                 return;
-            }
+
             _context.Entry(dbPerson).CurrentValues.SetValues(person);
             _context.SaveChanges();
         }
