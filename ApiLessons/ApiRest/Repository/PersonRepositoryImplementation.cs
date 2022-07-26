@@ -3,13 +3,13 @@ using ApiRest.Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ApiRest.Service
+namespace ApiRest.Repository
 {
-    public class PersonPersistence : IPersonPersistence
+    public class PersonRepositoryImplementation : IPersonRepository
     {
         private MySQLContext _context;
 
-        public PersonPersistence (MySQLContext context)
+        public PersonRepositoryImplementation(MySQLContext context)
         {
             _context = context;
         }

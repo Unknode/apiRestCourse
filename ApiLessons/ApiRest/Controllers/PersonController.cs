@@ -1,5 +1,5 @@
 ﻿using ApiRest.Model;
-using ApiRest.Service;
+using ApiRest.Business;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,12 +15,12 @@ namespace ApiRest.Controllers
     public class PersonController : ControllerBase
     {
 
-        private IPersonPersistence _personPersistence;
+        private IPersonBusiness _personPersistence;
 
-        public PersonController(IPersonPersistence personPersistence)
+        public PersonController(IPersonBusiness personBusiness)
         {
-            _personPersistence = personPersistence;
-        }
+            _personPersistence = personBusiness;
+        }   
 
         [HttpGet]
         public IActionResult GetAllPersons()

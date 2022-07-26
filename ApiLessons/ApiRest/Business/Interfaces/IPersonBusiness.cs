@@ -1,9 +1,9 @@
 ﻿using ApiRest.Model;
 using System.Collections.Generic;
 
-namespace ApiRest.Service
+namespace ApiRest.Business
 {
-    public interface IPersonPersistence
+    public interface IPersonBusiness
     {
         public Person GetPerson(int id);
         public Person Create(Person person);

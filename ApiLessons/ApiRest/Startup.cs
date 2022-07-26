@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using ApiRest.Model.Context;
-using ApiRest.Service;
+using ApiRest.Business;
 
 namespace ApiRest
 {
