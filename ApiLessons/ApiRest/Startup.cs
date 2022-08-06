@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using ApiRest.Model.Context;
+using ApiRest.Repository;
 using ApiRest.Business;
 
 namespace ApiRest
@@ -22,12 +23,11 @@ namespace ApiRest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
             services.AddControllers();
 
             string connection = Configuration["MySqlConnection:MySqlConnectionString"];
-            services.AddScoped<IPersonPersistence, PersonPersistence>();
+            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
+            services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection)); 
             services.AddSwaggerGen(c =>
             {
