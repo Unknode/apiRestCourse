@@ -6,8 +6,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using ApiRest.Model.Context;
-using ApiRest.Repository;
 using ApiRest.Business;
+using ApiRest.Repository;
+using ApiRest.Repository.Interfaces;
+using ApiRest.Business.Interfaces;
 
 namespace ApiRest
 {
@@ -28,6 +30,8 @@ namespace ApiRest
             string connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
+            services.AddScoped<IBookRepository, BookRepositoryImplementation>();
+            services.AddScoped<IBookBusiness, BookBusinessImplementation>();
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection)); 
             services.AddSwaggerGen(c =>
             {

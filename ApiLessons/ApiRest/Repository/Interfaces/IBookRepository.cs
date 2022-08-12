@@ -4,7 +4,7 @@ namespace ApiRest.Repository.Interfaces
 {
     public interface IBookRepository
     {
-        public Book GetPerson(int id);
+        public Book GetBook(int id);
         public Book Create(Book book);
         public List<Book> FindAll();
         public void Update(Book book);
