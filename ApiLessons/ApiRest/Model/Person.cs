@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using ApiRest.Model.Base;
 
 namespace ApiRest.Model
 {
     [Table("person")]
-    public class Person
+    public class Person : BaseEntity
     {
-        [Column("id")]
-        public int Id { get; set; }
-
         [Column("first_name")]
         public string Name { get; set; }
 
@@ -19,6 +17,5 @@ namespace ApiRest.Model
 
         [Column("gender")]
         public string Gender { get; set; }
-
     }
 }

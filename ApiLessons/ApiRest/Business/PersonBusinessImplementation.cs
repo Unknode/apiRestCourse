@@ -3,14 +3,15 @@ using ApiRest.Model;
 using System.Collections.Generic;
 using System.Linq;
 using ApiRest.Repository;
+using ApiRest.Repository.Generic;
 
 namespace ApiRest.Business
 {
     public class PersonBusinessImplementation : IPersonBusiness
     {
-        private readonly IPersonRepository _repository;
+        private readonly IRepository<Person> _repository;
 
-        public PersonBusinessImplementation(IPersonRepository repository)
+        public PersonBusinessImplementation(IRepository<Person> repository)
         {
             _repository = repository;
         }
@@ -34,7 +35,7 @@ namespace ApiRest.Business
 
         public Person GetPerson(int id)
         {
-            return _repository.GetPerson(id);
+            return _repository.GetItem(id);
         }
     }
 

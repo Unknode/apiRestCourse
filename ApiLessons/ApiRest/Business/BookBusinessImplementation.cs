@@ -1,15 +1,15 @@
 ﻿using ApiRest.Business.Interfaces;
 using ApiRest.Model;
 using System.Collections.Generic;
-using ApiRest.Repository.Interfaces;
+using ApiRest.Repository.Generic;
 
 namespace ApiRest.Business
 {
     public class BookBusinessImplementation : IBookBusiness
     {
-        private readonly IBookRepository _bookRepository;
+        private readonly IRepository<Book> _bookRepository;
 
-        public BookBusinessImplementation (IBookRepository bookRepository)
+        public BookBusinessImplementation (IRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
         }
@@ -41,7 +41,7 @@ namespace ApiRest.Business
             if (id == 0)
                 return null;
 
-            return _bookRepository.GetBook(id);
+            return _bookRepository.GetItem(id);
         }
 
         public void Update(Book book)

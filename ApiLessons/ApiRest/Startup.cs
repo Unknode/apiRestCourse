@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ApiRest.Model.Context;
 using ApiRest.Business;
 using ApiRest.Repository;
-using ApiRest.Repository.Interfaces;
 using ApiRest.Business.Interfaces;
+using ApiRest.Repository.Generic;
 
 namespace ApiRest
 {
@@ -28,9 +28,8 @@ namespace ApiRest
             services.AddControllers();
 
             string connection = Configuration["MySqlConnection:MySqlConnectionString"];
-            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
-            services.AddScoped<IBookRepository, BookRepositoryImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection)); 
             services.AddSwaggerGen(c =>
