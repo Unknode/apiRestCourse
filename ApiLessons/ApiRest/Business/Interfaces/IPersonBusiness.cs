@@ -1,4 +1,5 @@
-﻿using ApiRest.Model;
+﻿using ApiRest.Data.VO;
+using ApiRest.Model;
 using System.Collections.Generic;
 
 namespace ApiRest.Business
@@ -6,9 +7,9 @@ namespace ApiRest.Business
     public interface IPersonBusiness
     {
         public Person GetPerson(int id);
-        public Person Create(Person person);
-        public List<Person> FindAll();
-        public void Update(Person person);
+        public PersonVO Create(PersonVO person);
+        public List<PersonVO> FindAll();
+        public void Update(PersonVO person);
         public void Delete (int id);
     }
 }

@@ -1,30 +1,36 @@
-﻿using ApiRest.Model.Context;
-using ApiRest.Model;
+﻿using ApiRest.Model;
 using System.Collections.Generic;
-using System.Linq;
-using ApiRest.Repository;
 using ApiRest.Repository.Generic;
+using ApiRest.Data.VO;
+using ApiRest.Data.Converter.Contract;
+
 
 namespace ApiRest.Business
 {
     public class PersonBusinessImplementation : IPersonBusiness
     {
         private readonly IRepository<Person> _repository;
+        private IParser <PersonVO, Person>_personVOParser;
+        private IParser<Person, PersonVO>_personParser;
 
-        public PersonBusinessImplementation(IRepository<Person> repository)
+        public PersonBusinessImplementation(IRepository<Person> repository, IParser <PersonVO, Person> personVOParser, IParser<Person, PersonVO> personParser)
         {
             _repository = repository;
-        }
+            _personVOParser = personVOParser;
+            _personParser = personParser;
+         }
 
-        public Person Create(Person person)
+        public PersonVO Create(PersonVO person)
         {
-            return _repository.Create(person);
+            Person convertedPerson = _personVOParser.Parse(person);
+        
+            return _personParser.Parse(_repository.Create(convertedPerson));
         }
-        public List<Person> FindAll()
+        public List<PersonVO> FindAll()
         {
-            return _repository.FindAll();
+            return _personParser.Parse(_repository.FindAll());
         }
-        public void Update(Person person)
+        public void Update(PersonVO person)
         {
             _repository.Update(person);
         }
@@ -33,7 +39,7 @@ namespace ApiRest.Business
             _repository.Delete(id);
         }
 
-        public Person GetPerson(int id)
+        public PersonVO GetPerson(int id)
         {
             return _repository.GetItem(id);
         }
