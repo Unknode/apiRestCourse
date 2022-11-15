@@ -6,7 +6,7 @@ namespace ApiRest.Business
 {
     public interface IPersonBusiness
     {
-        public Person GetPerson(int id);
+        public PersonVO GetPerson(int id);
         public PersonVO Create(PersonVO person);
         public List<PersonVO> FindAll();
         public void Update(PersonVO person);

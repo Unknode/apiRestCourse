@@ -10,6 +10,10 @@ using ApiRest.Business;
 using ApiRest.Repository;
 using ApiRest.Business.Interfaces;
 using ApiRest.Repository.Generic;
+using ApiRest.Data.Converter.Contract;
+using ApiRest.Data.Converter.Implementations;
+using ApiRest.Model;
+using ApiRest.Data.VO;
 
 namespace ApiRest
 {
@@ -31,6 +35,10 @@ namespace ApiRest
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
+            services.AddScoped(typeof(IParser<Person, PersonVO>), typeof(PersonParser));
+            services.AddScoped(typeof(IParser<PersonVO, Person>), typeof(PersonParser));
+            services.AddScoped(typeof(IParser<Book, BookVO>), typeof(BookParser));
+            services.AddScoped(typeof(IParser<BookVO, Book>), typeof(BookParser));
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection)); 
             services.AddSwaggerGen(c =>
             {

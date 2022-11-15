@@ -2,6 +2,7 @@
 using ApiRest.Business;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using ApiRest.Data.VO;
 
 namespace ApiRest.Controllers
 {
@@ -51,7 +52,7 @@ namespace ApiRest.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateNewPerson([FromBody] Person person)
+        public IActionResult CreateNewPerson([FromBody] PersonVO person)
         {
             try
             {
@@ -69,7 +70,7 @@ namespace ApiRest.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdatePerson([FromBody] Person person)
+        public IActionResult UpdatePerson([FromBody] PersonVO person)
         {
             try
             {

@@ -32,7 +32,11 @@ namespace ApiRest.Business
         }
         public void Update(PersonVO person)
         {
-            _repository.Update(person);
+            if (person == null)
+                return;
+
+            Person convertedPerson = _personVOParser.Parse(person);
+            _repository.Update(convertedPerson);
         }
         public void Delete(int id)
         {
@@ -41,7 +45,7 @@ namespace ApiRest.Business
 
         public PersonVO GetPerson(int id)
         {
-            return _repository.GetItem(id);
+            return _personParser.Parse(_repository.GetItem(id));
         }
     }
 

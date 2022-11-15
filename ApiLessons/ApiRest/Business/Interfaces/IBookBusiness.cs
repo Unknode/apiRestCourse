@@ -1,13 +1,13 @@
-﻿using ApiRest.Model;
+﻿using ApiRest.Data.VO;
 using System.Collections.Generic;
 namespace ApiRest.Business.Interfaces
 {
     public interface IBookBusiness
     {
-        public Book GetBook(int id);
-        public Book Create(Book book);
-        public List<Book> FindAll();
-        public void Update(Book book);
+        public BookVO GetBook(int id);
+        public BookVO Create(BookVO book);
+        public List<BookVO> FindAll();
+        public void Update(BookVO book);
         public void Delete(int id);
     }
 }

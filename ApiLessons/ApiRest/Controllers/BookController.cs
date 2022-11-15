@@ -1,4 +1,4 @@
-﻿using ApiRest.Model;
+﻿using ApiRest.Data.VO;
 using ApiRest.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -50,7 +50,7 @@ namespace ApiRest.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateNewBook([FromBody] Book book)
+        public IActionResult CreateNewBook([FromBody] BookVO book)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace ApiRest.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateBook([FromBody] Book book)
+        public IActionResult UpdateBook([FromBody] BookVO book)
         {
             try
             {

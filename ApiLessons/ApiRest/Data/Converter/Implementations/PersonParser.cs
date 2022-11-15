@@ -1,6 +1,7 @@
 ﻿using ApiRest.Data.Converter.Contract;
 using ApiRest.Data.VO;
 using ApiRest.Model;
+using System;
 using System.Collections.Generic;
 
 namespace ApiRest.Data.Converter.Implementations
@@ -17,7 +18,8 @@ namespace ApiRest.Data.Converter.Implementations
                 Name = source.Name,
                 Address = source.Address,
                 Gender = source.Gender,
-                LastName = source.LastName
+                LastName = source.LastName,
+                Id = source.Id
             };
         }
 
@@ -28,16 +30,8 @@ namespace ApiRest.Data.Converter.Implementations
 
             List<Person> persons = new List<Person>();
             foreach (PersonVO persoVO in source)
-            {
-                Person person = new Person
-                {
-                    Name = persoVO.Name,
-                    LastName = persoVO.LastName,
-                    Gender = persoVO.Gender,
-                    Address = persoVO.Address
-                };
-
-                persons.Add(person);
+            { 
+                persons.Add(Parse(persoVO));
             }
             return persons;
         }
@@ -52,7 +46,8 @@ namespace ApiRest.Data.Converter.Implementations
                 Address = source.Address,
                 Gender = source.Gender,
                 LastName = source.LastName,
-                Name = source.Name
+                Name = source.Name,
+                Id = source.Id
             };
         }
 
@@ -64,16 +59,10 @@ namespace ApiRest.Data.Converter.Implementations
             List<PersonVO> persons = new List<PersonVO>();
 
             foreach (Person person in source)
-            {
-                PersonVO personVO = new PersonVO
-                {
-                    Name = person.Name,
-                    LastName = person.LastName,
-                    Address = person.Address,
-                    Gender = person.Gender
-                };
-                persons.Add(personVO);
+            {        
+                persons.Add(Parse(person));
             }
+
             return persons;
         }
     }
