@@ -14,6 +14,15 @@ using ApiRest.Data.Converter.Contract;
 using ApiRest.Data.Converter.Implementations;
 using ApiRest.Model;
 using ApiRest.Data.VO;
+using ApiRest.Services.Implementations;
+using ApiRest.Services.Interfaces;
+using ApiRest.Repository.Token;
+using ApiRest.Configurations;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiRest
 {
@@ -31,6 +40,37 @@ namespace ApiRest
         {
             services.AddControllers();
 
+            var tokenConfigurations = new TokenConfiguration();
+
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(Configuration.GetSection("TokenConfigurations")).Configure(tokenConfigurations);
+            services.AddSingleton(tokenConfigurations);
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = tokenConfigurations.Issuer,
+                    ValidAudience = tokenConfigurations.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
+                };
+            });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser().Build());
+
+            });
+
             string connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
@@ -39,7 +79,12 @@ namespace ApiRest
             services.AddScoped(typeof(IParser<PersonVO, Person>), typeof(PersonParser));
             services.AddScoped(typeof(IParser<Book, BookVO>), typeof(BookParser));
             services.AddScoped(typeof(IParser<BookVO, Book>), typeof(BookParser));
-            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection)); 
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
+            services.AddTransient<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+          
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiRest", Version = "v1" });

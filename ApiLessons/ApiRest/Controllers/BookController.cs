@@ -2,11 +2,13 @@
 using ApiRest.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiRest.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize("Bearer")]
     public class BookController : ControllerBase
     {
         private IBookBusiness _bookPersistence;

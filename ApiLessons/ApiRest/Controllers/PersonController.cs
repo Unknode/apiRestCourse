@@ -3,11 +3,13 @@ using ApiRest.Business;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using ApiRest.Data.VO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiRest.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize("Bearer")]
     public class PersonController : ControllerBase
     {
 

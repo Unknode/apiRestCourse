@@ -47,6 +47,8 @@ namespace ApiRest.Business
             DateTime createdDate = DateTime.Now;
             DateTime expirationDate = createdDate.AddMinutes(_configuration.Minutes);
 
+            _userRepository.RefreshUserInfo(user);
+
             return new TokenVO(
                 true,
                 createdDate.ToString(DATE_FORMAT),
